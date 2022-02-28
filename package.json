@@ -4,9 +4,10 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "start": "node server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server":"nodemon",
-    "client":"npm start --prefix views",
+    "server": "nodemon",
+    "client": "npm start --prefix views",
     "dev": "concurrently \"npm run server \" \"npm run client\""
   },
   "repository": {

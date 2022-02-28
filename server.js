@@ -6,6 +6,8 @@ const colors = require("colors");
 const users = require("./routes/user");
 const cors = require("cors");
 const app = express();
+const path = require('path');
+
 
 app.use(cors());
 
@@ -27,6 +29,14 @@ app.use("/user", users);
 
 const PORT = process.env.PORT || 5000;
 
+const publicPath = path.join(__dirname, '..', 'public');
+app.use(express.static(publicPath));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(publicPath, 'index.html'));
+});
+
+
 app.listen(
   PORT,
   console.log(
@@ -34,5 +44,3 @@ app.listen(
   )
 );
 
-// mongodb+srv://eldhosempeter:test123@codesouls.cfrrd.mongodb.net/expense-tracker?
-// retryWrites=true&w=majority

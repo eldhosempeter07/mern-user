@@ -29,9 +29,7 @@ router.post("/", upload.single("profileImage"), adduser);
 router.put("/:id", upload.single("profileImage"), updateuser);
 
 router.route("/").get(getusers);
-// .post(addusers);
 
 router.route("/:id").delete(deleteusers).get(getuserById);
-// .put(updateuserById);
 
 module.exports = router;

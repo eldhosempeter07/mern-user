@@ -37,37 +37,24 @@ exports.getusers = async (req, res, next) => {
 // @desc Add User
 // route POST users
 // @access Public
-exports.addusers = async (req, res, next) => {
-  try {
-    const user = await User.create(req.body);
-    return res.status(200).json({
-      success: true,
-      result: user,
-    });
-  } catch (err) {
-    console.log(err);
-    return (
-      res.status(500),
-      json({
-        success: false,
-        error: "Server Error",
-      })
-    );
-  }
-};
 
 exports.adduser = async (req, res, next) => {
   console.log(req.file);
   console.log("Body", req.body);
+
   const newUser = new User({
     name: req.body.name,
     password: req.body.password,
     email: req.body.email,
-    image: req.file.filename,
+    
     description: req.body.description,
     interest: req.body.interest,
     gender: req.body.gender,
   });
+  
+  if(req.file != undefined){
+    newUser["image"] = req.file.filename 
+  }
   newUser
     .save()
     .then(() => res.json("New User Posted"))
@@ -138,29 +125,19 @@ exports.getuserById = async (req, res, next) => {
 // @desc update  user
 // route PUT user/:id
 // @access Public
-exports.updateuserById = async (req, res, next) => {
-  try {
-    console.log(req.body);
-    // const user = await User.findByIdAndUpdate(req.params.id, req.body)
-    return res.status(200).json({
-      success: true,
-    });
-  } catch (error) {
-    console.log(error);
-    return (
-      res.status(500),
-      json({
-        success: false,
-        error: "Server Error",
-      })
-    );
-  }
-};
+
 
 exports.updateuser = async (req, res, next) => {
   try {
     console.log(req.body);
-    const user = await User.findByIdAndUpdate(req.params.id, req.body);
+    let data = {}
+    if(req.file == undefined){
+      data = {...req.body}
+    }else{
+        data = {...req.body,image: req.file.filename}
+
+    }
+    const user = await User.findByIdAndUpdate(req.params.id, data);
     return res.status(200).json({
       success: true,
     });

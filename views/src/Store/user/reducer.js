@@ -13,7 +13,7 @@ const Users = (state=init_state,action) => {
             return {
                 ...state,
                 loading:true,
-                userList:{}
+                userList:{} 
             }
 
         case GET_USERS_SUCCESS:

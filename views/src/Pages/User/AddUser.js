@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {  useNavigate } from "react-router-dom";
 import {
   Button,
   Form,
@@ -12,10 +12,12 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import Loader from "../../Components/Loader";
 import { checkIfValidEmail } from "../../Helpers/utils";
 import { addUser } from "../../Store/user/actions";
 
 const AddUser = () => {
+  const Users = useSelector((state) => state.Users);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -33,15 +35,13 @@ const AddUser = () => {
     navigate({ pathname: "/user-list" });
   };
 
-  console.log(image);
-
   useEffect(() => {
     if (
-      image == "" ||
+      // image == "" ||
       name == "" ||
       password == "" ||
-      gender == "" ||
-      description == ""
+      gender == "" 
+      // description == ""
     ) {
       setDisableSubmit(true);
     } else {
@@ -56,7 +56,7 @@ const AddUser = () => {
     formData.append("profileImage", image);
     formData.append("name", name);
     formData.append("password", password);
-    formData.append("email", password);
+    formData.append("email", email);
     formData.append("gender", gender);
     formData.append("interest", interest);
     formData.append("description", description);
@@ -69,8 +69,10 @@ const AddUser = () => {
     );
   };
 
+  console.log(emailError);
+
   useEffect(() => {
-    if (email.length > 1 && checkIfValidEmail(email)) {
+    if (email.length != 0 && checkIfValidEmail(email)) {
       setDisableSubmit(false);
       setEmailError("");
     } else {
@@ -91,7 +93,7 @@ const AddUser = () => {
       setPasswordError("Password should match");
       setDisableSubmit(true);
     }
-  }, [email]);
+  }, [password,confirmPassword]);
 
   const interests = ["Sports", "Technology", "News", "Music", "Movies"];
 
@@ -137,7 +139,10 @@ const AddUser = () => {
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </FormGroup>
+            {
+              password.length > 0 && confirmPassword.length > 0 && passwordError &&
             <p className="text-danger">{passwordError}</p>
+            }
 
             <FormGroup>
               <Label>Email </Label>
@@ -149,9 +154,12 @@ const AddUser = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </FormGroup>
+            {
+              email.length > 0 &&  emailError &&
             <p className="text-danger">{emailError}</p>
+            }
 
-            <FormGroup className="col-lg-4">
+            {/* <FormGroup className="col-lg-4">
               <Label>Profile Image </Label>
               <Input
                 type="file"
@@ -160,7 +168,24 @@ const AddUser = () => {
                 accept=".jpg, .jpeg, .png"
                 onChange={(e) => setImage(e.target.files[0])}
               />
-            </FormGroup>
+            </FormGroup> */}
+
+            <label className="seller-form-control-label">Profile Image</label>
+            <div class="input-group input-group-icon mb-4">
+              <div className="seller-form-group focused ">
+                <input
+                  type="file"
+                  fileName="profileImage"
+                  accept=".jpg, .jpeg, .png"
+                  className="pl-0 pt-2  "
+                  style={{
+                    userSelect: "none",
+                  }}
+                  onChange={(e) => setImage(e.target.files[0])}
+                />
+         
+              </div>
+            </div>
 
             <Label>General Description </Label>
             <FormGroup>
@@ -221,6 +246,8 @@ const AddUser = () => {
           </Form>
         </Col>
       </Row>
+      {Users?.loading && <Loader darkBg={true} />}
+
     </div>
   );
 };

@@ -1,122 +1,173 @@
 td,
 th {
-  text-align: left;
-  padding: 8px;
+	text-align: left;
+	padding: 8px;
 }
 
 .action-btn {
-  border-radius: 3px;
+	border-radius: 3px;
 }
 
 .action-btn:disabled:hover {
-  cursor: not-allowed;
+	cursor: not-allowed;
 }
 
 .close {
-  background: transparent;
-  border: 0;
-  font-size: 10px;
-  padding: 1.35rem 1.25rem;
-  position: absolute;
-  color: #a50000;
-  top: 0;
-  right: 0;
-  opacity: 0.5;
-  width: 1em;
-  height: 1em;
-  z-index: 2;
+	background: transparent;
+	border: 0;
+	font-size: 10px;
+	padding: 1.35rem 1.25rem;
+	position: absolute;
+	color: #a50000;
+	top: 0;
+	right: 0;
+	opacity: 0.5;
+	width: 1em;
+	height: 1em;
+	z-index: 2;
 }
 
 .closespan {
-  display: none;
+	display: none;
 }
 
 .pagination_wrap {
-  flex: 5;
-  display: flex;
-  justify-content: flex-end;
+	flex: 5;
+	display: flex;
+	justify-content: flex-end;
 }
 .pagination {
-  margin: 0;
+	margin: 0;
 }
 
 .page-item.active .page-link {
-  background-color: transparent;
-  border-color: #d2d3d6;
-  border-bottom-color: #bd0b0b;
-  color: #bd0b0b;
+	background-color: transparent;
+	border-color: #d2d3d6;
+	border-bottom-color: #bd0b0b;
+	color: #bd0b0b;
 }
 
 .page-link {
-  color: #333;
-  padding: 0.6rem 1rem;
-  margin: 0 0.3rem;
+	color: #333;
+	padding: 0.6rem 1rem;
+	margin: 0 0.3rem;
 }
 
 .page-link:hover {
-  color: #bd0b0b;
+	color: #bd0b0b;
 }
 
 .loaderWrapper {
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1040;
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	top: 0;
+	left: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 1040;
 }
 
 .loaderWrapper .spinnerBox {
-  text-align: center;
-  color: #fff;
+	text-align: center;
+	color: #fff;
 }
 
 .SearchWrapper {
-  width: 250px;
-  position: relative;
+	width: 250px;
+	position: relative;
 }
 .SearchWrapper .tableSearchField {
-  width: 100%;
+	width: 100%;
 }
 .SearchWrapper .searchIconWrapper {
-  position: absolute;
-  top: 50%;
-  right: 0px;
-  transform: translate(0%, -50%);
-  color: #e2e4e6;
-  height: 99%;
-  padding: 0px 10px;
-  display: flex;
-  align-items: center;
-  border-radius: 0px 3px 3px 0px;
-  cursor: pointer;
+	position: absolute;
+	top: 50%;
+	right: 0px;
+	transform: translate(0%, -50%);
+	color: #e2e4e6;
+	height: 99%;
+	padding: 0px 10px;
+	display: flex;
+	align-items: center;
+	border-radius: 0px 3px 3px 0px;
+	cursor: pointer;
 }
 
 .profileWrap {
-  position: relative;
-  padding: 0px 5px;
+	position: relative;
+	padding: 0px 5px;
 }
 
 .profileWrap .table_profileImg {
-  width: 60px;
-  height: 60px;
-  border-radius: 3px;
+	width: 60px;
+	height: 60px;
+	border-radius: 3px;
 }
 
 .edit-file input[type="file"] {
-  color: rgba(0, 0, 0, 0);
+	color: rgba(0, 0, 0, 0);
 }
 
 .noselect {
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+	-khtml-user-select: none; /* Konqueror HTML */
+	-moz-user-select: none; /* Old versions of Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Opera and Firefox */
+}
+
+.superstar-suggestion-list-container {
+	margin-top: 0;
+	max-height: 300px;
+	z-index: 1000;
+	overflow: hidden;
+	overflow-y: scroll;
+	border-radius: 10px;
+	margin-right: 0px !important;
+	position: absolute;
+	top: 175px;
+	left: 90px;
+	max-width: 285px;
+}
+
+.superstar-suggestion-empty-container {
+	margin-top: 0;
+	max-height: 300px;
+	z-index: 1000;
+	border-radius: 10px;
+	margin-right: 0px !important;
+	position: absolute;
+	top: 175px;
+	left: 85px;
+}
+
+.superstar-suggestion-list {
+	padding: 5px 3px;
+	margin: 0 2px;
+	list-style: none;
+	background-color: rgb(255, 255, 255);
+	cursor: pointer;
+}
+
+.superstar-suggestion-list_link {
+	color: #333;
+	text-decoration: none;
+}
+
+.superstar-suggestion-list_link:hover {
+	color: #0e0e0e;
+}
+.super-star-btn-container {
+	margin-top: 40px !important;
+}
+
+@media only screen and (max-width: 700px) {
+	.super-star-btn-container {
+		margin-top: 0px !important;
+	}
 }

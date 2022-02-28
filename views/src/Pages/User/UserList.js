@@ -15,9 +15,12 @@ const UserList = () => {
   const Users = useSelector((state) => state.Users);
   const [showPromptPopUp, setShowPromptPopUp] = useState(false);
   const [promptMessage, setPromptMessage] = useState({});
+  const [nameSelect, setNameSelect] = useState(false);
   const toggle = () => {
     setShowPromptPopUp(!showPromptPopUp);
   };
+
+  console.log(Users);
 
   console.log(Users?.userList?.count);
   const basicRequest = {
@@ -41,7 +44,7 @@ const UserList = () => {
     dispatch(
       deleteUserByID({
         id: promptMessage.id,
-        callback: () => dispatch(getUsers()),
+        callback: () => dispatch(getUsers(request)),
       })
     );
   };
@@ -65,7 +68,46 @@ const UserList = () => {
             setRequest={setRequest}
             request={request}
             searchTerm={request.keyword}
+            setNameSelect = {setNameSelect}
           />
+
+<div >
+                    {request.keyword.length && nameSelect
+ ? (
+                      <ul
+                        className={`${
+                          Users?.userList?.result?.length
+                            ? "superstar-suggestion-list-container"
+                            : "superstar-suggestion-empty-container"
+                        } col-md-6`}
+                      >
+                        {Users?.userList?.result?.length
+                          ?Users?.userList?.result?.map((user) => (
+                              <li
+                                key={user._id}
+                                className=" superstar-suggestion-list"
+                                value={user._id}
+                                onClick={() => {
+                                    setNameSelect(false)
+                                    setRequest({...request,keyword:user.name});
+                                  }}
+                              >
+                                <a
+                                  className="cursor-pointer superstar-suggestion-list_link"
+                           
+                                >
+                                  {user.name}
+                                </a>
+                              </li>
+                            ))
+                          : !Users?.loading && (
+                              <li className="superstar-suggestion-list">
+                                No data found
+                              </li>
+                            )}{" "}
+                      </ul>
+                    ) : null}
+                  </div>
         </div>
         <div className="text-end mb-4">
           <button className="btn btn-danger" onClick={handleAddClick}>
@@ -73,7 +115,7 @@ const UserList = () => {
           </button>
         </div>
         {Users?.userList?.count ? (
-          <table>
+          <table style={{overflowX:"auto"}}>
             <tr>
               <th>No.</th>
               <th>Image</th>
@@ -83,6 +125,7 @@ const UserList = () => {
               <th>Gender</th>
               <th>Interest</th>
               <th>Created Time</th>
+              <th>Action</th>
             </tr>
             {Users?.userList?.result?.length
               ? Users?.userList?.result?.map((user, i) => (
@@ -94,7 +137,7 @@ const UserList = () => {
                           <img
                             data-tag="allowRowEvents"
                             className="table_profileImg"
-                            src={require(`../../../public/uploads/${user.image}`)}
+                            src={user?.image && require(`../../../public/uploads/${user?.image}`)}
                           />
                         </div>
                       </div>
@@ -127,46 +170,16 @@ const UserList = () => {
                 ))
               : null}
           </table>
-        ) : (
+        ) : 
+            
+            !Users.loading ?
           <div className="my-5">
             <p className="text-center my-5">No Users Available</p>
           </div>
-        )}
+         :null   
+        }
 
-        {/* <div style={{ position: "absolute" }}>
-          {Users?.userList?.result?.length ? (
-            <ul
-              className={`${
-                Users?.userList?.result?.length
-                  ? "superstar-suggestion-list-container"
-                  : "superstar-suggestion-empty-container"
-              } col-md-6`}
-            >
-              {Users?.userList?.result?.length
-                ? Users?.userList?.result?.map((user) => (
-                    <li
-                      key={user.id}
-                      className=" superstar-suggestion-list"
-                      value={user.id}
-                    >
-                      <a
-                        className="cursor-pointer superstar-suggestion-list_link"
-                        onClick={() => {
-                          // handlesuperStarInputChange(user.id, i, user.name);
-                          // setInputVal("");
-                        }}
-                      >
-                        {user.name}
-                      </a>
-                    </li>
-                  ))
-                : !Users?.loading && (
-                    <li className="superstar-suggestion-list">No data found</li>
-                  )}{" "}
-            </ul>
-          ) : null}
-        </div> */}
-
+    
         {Users?.userList?.count ? (
           <ShopPagination
             totalRecords={Users?.userList?.count}
@@ -175,6 +188,8 @@ const UserList = () => {
             request={request}
           />
         ) : null}
+
+
       </div>
 
       <ConfirmationAlert
