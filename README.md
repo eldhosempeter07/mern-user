@@ -12,7 +12,7 @@ Steps:
 
 4. Go to frontend : cd views
 
-5. Install packages for backend : 
+5. Install packages for frontend : 
   1.npm install 
   2.npm audit fix
 
