@@ -68,46 +68,39 @@ const UserList = () => {
             setRequest={setRequest}
             request={request}
             searchTerm={request.keyword}
-            setNameSelect = {setNameSelect}
+            setNameSelect={setNameSelect}
           />
 
-<div >
-                    {request.keyword.length && nameSelect
- ? (
-                      <ul
-                        className={`${
-                          Users?.userList?.result?.length
-                            ? "superstar-suggestion-list-container"
-                            : "superstar-suggestion-empty-container"
-                        } col-md-6`}
+          <div>
+            {" "}
+            {request.keyword.length && nameSelect ? (
+              <ul
+                className={`${
+                  Users?.userList?.result?.length
+                    ? "list-container"
+                    : "empty-container"
+                } col-md-6`}
+              >
+                {Users?.userList?.result?.length
+                  ? Users?.userList?.result?.map((user) => (
+                      <li
+                        key={user._id}
+                        className=" list"
+                        value={user._id}
+                        onClick={() => {
+                          setNameSelect(false);
+                          setRequest({ ...request, keyword: user.name });
+                        }}
                       >
-                        {Users?.userList?.result?.length
-                          ?Users?.userList?.result?.map((user) => (
-                              <li
-                                key={user._id}
-                                className=" superstar-suggestion-list"
-                                value={user._id}
-                                onClick={() => {
-                                    setNameSelect(false)
-                                    setRequest({...request,keyword:user.name});
-                                  }}
-                              >
-                                <a
-                                  className="cursor-pointer superstar-suggestion-list_link"
-                           
-                                >
-                                  {user.name}
-                                </a>
-                              </li>
-                            ))
-                          : !Users?.loading && (
-                              <li className="superstar-suggestion-list">
-                                No data found
-                              </li>
-                            )}{" "}
-                      </ul>
-                    ) : null}
-                  </div>
+                        <a className="cursor-pointer list_link">{user.name}</a>
+                      </li>
+                    ))
+                  : !Users?.loading && (
+                      <li className="list">No data found</li>
+                    )}{" "}
+              </ul>
+            ) : null}
+          </div>
         </div>
         <div className="text-end mb-4">
           <button className="btn btn-danger" onClick={handleAddClick}>
@@ -115,7 +108,7 @@ const UserList = () => {
           </button>
         </div>
         {Users?.userList?.count ? (
-          <table style={{overflowX:"auto"}}>
+          <table style={{ overflowX: "auto" }}>
             <tr>
               <th>No.</th>
               <th>Image</th>
@@ -137,7 +130,10 @@ const UserList = () => {
                           <img
                             data-tag="allowRowEvents"
                             className="table_profileImg"
-                            src={user?.image && require(`../../../public/uploads/${user?.image}`)}
+                            src={
+                              user?.image &&
+                              require(`../../../public/uploads/${user?.image}`)
+                            }
                           />
                         </div>
                       </div>
@@ -170,16 +166,12 @@ const UserList = () => {
                 ))
               : null}
           </table>
-        ) : 
-            
-            !Users.loading ?
+        ) : !Users.loading ? (
           <div className="my-5">
             <p className="text-center my-5">No Users Available</p>
           </div>
-         :null   
-        }
+        ) : null}
 
-    
         {Users?.userList?.count ? (
           <ShopPagination
             totalRecords={Users?.userList?.count}
@@ -188,8 +180,6 @@ const UserList = () => {
             request={request}
           />
         ) : null}
-
-
       </div>
 
       <ConfirmationAlert
