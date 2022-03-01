@@ -28,9 +28,6 @@ app.use("/user", users);
 
 const PORT = process.env.PORT || 5000;
 
-const publicPath = path.join(__dirname, "..", "public");
-app.use(express.static(publicPath));
-
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("views/build"));
 
