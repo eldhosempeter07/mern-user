@@ -244,3 +244,36 @@ th {
     left: 430px;
   }
 }
+
+table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+.header-row {
+  padding: 50px;
+}
+
+td,
+tr {
+  /* border: 1px solid #ddd; */
+  padding: 8px;
+}
+
+tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: rgb(230, 230, 230);
+}
+
+th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #706b6b;
+  color: white;
+}

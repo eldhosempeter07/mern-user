@@ -109,7 +109,7 @@ const UserList = () => {
         </div>
         {Users?.userList?.count ? (
           <table style={{ overflowX: "auto" }}>
-            <tr>
+            <tr className="header-row">
               <th>No.</th>
               <th>Image</th>
               <th>Username</th>
@@ -152,8 +152,6 @@ const UserList = () => {
                       >
                         <img src={Edit_icon} alt="Edit" />
                       </button>
-                    </td>
-                    <td>
                       <button
                         onClick={() => deletePromptHandler(user._id)}
                         className="btn color-red action-btn"

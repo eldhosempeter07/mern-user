@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   Form,
@@ -30,7 +30,7 @@ const AddUser = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [interest, setInterest] = useState("Sports");
-  const [disableSubmit, setDisableSubmit] = useState("Sports");
+  const [disableSubmit, setDisableSubmit] = useState(true);
   const handleAddClick = () => {
     navigate({ pathname: "/user-list" });
   };
@@ -40,7 +40,7 @@ const AddUser = () => {
       // image == "" ||
       name == "" ||
       password == "" ||
-      gender == "" 
+      gender == ""
       // description == ""
     ) {
       setDisableSubmit(true);
@@ -93,7 +93,7 @@ const AddUser = () => {
       setPasswordError("Password should match");
       setDisableSubmit(true);
     }
-  }, [password,confirmPassword]);
+  }, [password, confirmPassword]);
 
   const interests = ["Sports", "Technology", "News", "Music", "Movies"];
 
@@ -139,10 +139,9 @@ const AddUser = () => {
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </FormGroup>
-            {
-              password.length > 0 && confirmPassword.length > 0 && passwordError &&
-            <p className="text-danger">{passwordError}</p>
-            }
+            {password.length > 0 &&
+              confirmPassword.length > 0 &&
+              passwordError && <p className="text-danger">{passwordError}</p>}
 
             <FormGroup>
               <Label>Email </Label>
@@ -154,10 +153,9 @@ const AddUser = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </FormGroup>
-            {
-              email.length > 0 &&  emailError &&
-            <p className="text-danger">{emailError}</p>
-            }
+            {email.length > 0 && emailError && (
+              <p className="text-danger">{emailError}</p>
+            )}
 
             {/* <FormGroup className="col-lg-4">
               <Label>Profile Image </Label>
@@ -183,7 +181,6 @@ const AddUser = () => {
                   }}
                   onChange={(e) => setImage(e.target.files[0])}
                 />
-         
               </div>
             </div>
 
@@ -247,7 +244,6 @@ const AddUser = () => {
         </Col>
       </Row>
       {Users?.loading && <Loader darkBg={true} />}
-
     </div>
   );
 };

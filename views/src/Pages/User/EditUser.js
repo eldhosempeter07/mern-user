@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { checkIfValidEmail } from "../../Helpers/utils";
-import {  useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Button,
   Form,
@@ -29,7 +29,7 @@ const EditUser = () => {
   const [description, setDescription] = useState("");
   const [gender, setGender] = useState("");
   const [interest, setInterest] = useState("");
-  const [disableSubmit, setDisableSubmit] = useState("Sports");
+  const [disableSubmit, setDisableSubmit] = useState(true);
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const handleAddClick = () => {
@@ -49,7 +49,8 @@ const EditUser = () => {
     Users?.userDetails?.interest && setInterest(Users?.userDetails?.interest);
     Users?.userDetails?.image && setImage(Users?.userDetails?.image);
     Users?.userDetails?.password && setPassword(Users?.userDetails?.password);
-    Users?.userDetails?.password && setConfirmPassword(Users?.userDetails?.password);
+    Users?.userDetails?.password &&
+      setConfirmPassword(Users?.userDetails?.password);
   }, [Users?.userDetails]);
 
   const fileName =
@@ -88,7 +89,7 @@ const EditUser = () => {
       setEmailError("Please enter a valid email address");
       setDisableSubmit(true);
     }
-  }, [email]);  
+  }, [email]);
 
   useEffect(() => {
     if (
@@ -102,10 +103,10 @@ const EditUser = () => {
       setPasswordError("Password should match");
       setDisableSubmit(true);
     }
-  }, [password,confirmPassword]);
+  }, [password, confirmPassword]);
 
   useEffect(() => {
-    if ( name == "" || gender == "" ) {
+    if (name == "" || gender == "") {
       setDisableSubmit(true);
     } else {
       setDisableSubmit(false);
@@ -134,7 +135,6 @@ const EditUser = () => {
                 onChange={(e) => setName(e.target.value)}
               />
             </FormGroup>
-
             <FormGroup>
               <Label>Password </Label>
               <Input
@@ -145,12 +145,9 @@ const EditUser = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </FormGroup>
-
-            {
-              password.length > 0 && confirmPassword.length > 0 && passwordError &&
-            <p className="text-danger">{passwordError}</p>
-            }
-
+            {password.length > 0 &&
+              confirmPassword.length > 0 &&
+              passwordError && <p className="text-danger">{passwordError}</p>}
             <FormGroup>
               <Label>Confirm Password </Label>
               <Input
@@ -161,7 +158,6 @@ const EditUser = () => {
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </FormGroup>
-
             <FormGroup>
               <Label>Email </Label>
               <Input
@@ -172,7 +168,6 @@ const EditUser = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </FormGroup>
- 
             <label className="seller-form-control-label">Profile Image</label>
             <div class="input-group input-group-icon mb-4">
               <div className="seller-form-group focused edit-file">
@@ -259,7 +254,6 @@ const EditUser = () => {
         </Col>
       </Row>
       {Users?.loading && <Loader darkBg={true} />}
-
     </div>
   );
 };
